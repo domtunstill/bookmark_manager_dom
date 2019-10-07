@@ -1,4 +1,5 @@
 Setup of test database
+
 ```
 $> psql
 username=# CREATE DATABASE "bookmark_manager_test";
