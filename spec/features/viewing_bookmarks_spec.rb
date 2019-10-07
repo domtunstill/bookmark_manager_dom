@@ -15,3 +15,13 @@ feature 'Viewing bookmarks' do
     expect(page).to have_content "http://www.twitter.com"
   end
 end
+
+feature 'Adding bookmarks' do
+  scenario 'A user can add bookmarks' do
+    visit('/bookmarks')
+    fill_in 'New Bookmark', :with => "http://www.google.com"
+    click_button("Add Bookmark")
+
+    expect(page).to have_content "http://www.google.com"
+  end
+end

@@ -1,15 +1,24 @@
 require 'pg'
+require_relative 'connection'
 
 class Bookmark
 
-  def self.all
-    if ENV['ENVIRONMENT'] == 'test'
-      connection = PG.connect(dbname: 'bookmark_manager_test')
-    else
-      connection = PG.connect(dbname: 'bookmark_manager')
-    end
+  def initialize(url)
+    @url = url
+  end
 
-    data = connection.exec('SELECT * FROM bookmarks;') 
+  def self.all
+    connection = Connection.new
+    data = connection.run_sql('SELECT * FROM bookmarks;') 
     data.map { |bookmark| bookmark['url'] }
-  end  
+  end
+  
+  def save_to_db
+    sql = "INSERT INTO Bookmarks (url) VALUES ('" 
+    sql += @url 
+    sql += "');"
+    
+    connection = Connection.new
+    connection.run_sql(sql)
+  end
 end

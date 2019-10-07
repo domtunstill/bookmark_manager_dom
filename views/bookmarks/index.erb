@@ -1,3 +1,7 @@
+<form action="/add" method="post">
+  <input type="text" name="New Bookmark" id="">
+  <input type="submit" value="Add Bookmark">
+</form>
 <ul>
   <% @bookmarks.each do |bookmark| %>
     <li><a href= <%=bookmark%> > <%=bookmark%> </a></li>
