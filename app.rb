@@ -12,10 +12,10 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/add' do
-    @bookmark = Bookmark.new(params["New Bookmark"])
+    @bookmark = Bookmark.new(params['New Bookmark'])
     @bookmark.save_to_db
-    redirect "/bookmarks"
+    redirect '/bookmarks'
   end
 
-  run! if app_file == $0
+  run! if app_file == $PROGRAM_NAME
 end
