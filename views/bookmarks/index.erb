@@ -1,13 +1,22 @@
+<title>Bookmark Manager</title>
+<h1>Bookmark Manager</h1>
+
 <form action="/add" method="post">
-  URL: <input type="text" name="url" id=""></br>
-  Title: <input type="text" name="title" id="">
+  URL: <input type="text" name="url"></br>
+  Title: <input type="text" name="title">
   <input type="submit" value="Add Bookmark">
 </form>
 
 <%# To fix %>
 <ul>
   <% @bookmarks.each do |bookmark| %>
-    <li><a href= <%=bookmark.url%> > <%=bookmark.title%> </a></li>
+    <li>
+      <form action="/delete" method="post">
+        <a href= <%=bookmark.url%> > <%=bookmark.title%> </a>
+        <input type="hidden" id="delete_id" name="delete_id" value="<%=bookmark.id%>">
+        <input type="submit" value='X'>
+      </form>
+    </li>
   <% end %>
 </ul>
 

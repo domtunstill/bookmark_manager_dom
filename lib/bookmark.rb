@@ -3,6 +3,7 @@ require_relative 'database'
 class Bookmark
   DATABASE = 'bookmark_manager'
   TABLE = 'bookmarks'
+  PK_COL = 'id'
 
   # class methods
   def self.all
@@ -13,13 +14,18 @@ class Bookmark
     end
   end
   
-  def self.save_to_db(url, title)
+  def self.add(url, title)
     db = DatabaseConn.new(DATABASE)
     columns = 'url, title'
     values = "'#{url}', '#{title}'"
-    db.save_value(TABLE, columns, values )
+    db.save_values(TABLE, columns, values )
   end
   
+  def self.delete(id)
+    db = DatabaseConn.new(DATABASE)
+    db.delete(TABLE, PK_COL, id)
+  end
+
   # Instance Methods
   attr_reader :id, :url, :title
 
@@ -29,4 +35,8 @@ class Bookmark
     @title = title
   end
 
+  def db_conn
+    DatabaseConn.new(DATABASE)
+  end
+    
 end

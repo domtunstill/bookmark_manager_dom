@@ -14,9 +14,14 @@ class DatabaseConn
     data = run_sql(sql)
   end
 
-  def save_value(table, columns, values, return_data = true)
+  def save_values(table, columns, values, return_data = true)
     sql = "INSERT INTO #{table} (#{columns}) VALUES (#{values})"
     sql += " RETURNING *" if return_data == true
+    run_sql(sql)
+  end
+
+  def delete(table, column, value)
+    sql = "DELETE FROM #{table} WHERE #{column} = #{value};"
     run_sql(sql)
   end
 
