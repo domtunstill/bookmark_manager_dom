@@ -14,8 +14,9 @@ class DatabaseConn
     data = run_sql(sql)
   end
 
-  def save_value(table, column, value)
-    sql = "INSERT INTO #{table} (#{column}) VALUES ('#{value}');"
+  def save_value(table, columns, values, return_data = true)
+    sql = "INSERT INTO #{table} (#{columns}) VALUES (#{values})"
+    sql += " RETURNING *" if return_data == true
     run_sql(sql)
   end
 
