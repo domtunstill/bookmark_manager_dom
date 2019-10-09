@@ -22,7 +22,12 @@ require File.join(File.dirname(__FILE__), '..', 'app.rb')
 require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
+require 'rubocop'
+require 'simplecov'
+require 'simplecov-console'
 
+SimpleCov.formatter = SimpleCov::Formatter::Console
+SimpleCov.start
 
 Capybara.app = BookmarkManager
 
