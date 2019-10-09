@@ -1,0 +1,25 @@
+<title>Bookmark Manager</title>
+<h1>Bookmark Manager</h1>
+
+<form action="/api/bookmarks/new" method="post">
+  <input type="text" name="url" placeholder="URL including http://"></br>
+  <input type="text" name="title" placeholder="Title to display">
+  <input type="submit" value="Add Bookmark">
+</form>
+
+<%# To fix %>
+<ul>
+  <% @bookmarks.each do |bookmark| %>
+    <li class="bookmark" id="bookmark-<%= bookmark.id %>">
+      <form action="/api/bookmarks/delete/<%= bookmark.id %>" method="post">
+        <a href= "<%=bookmark.url%>" target="_blank">
+          <%= bookmark.title %>
+        </a>
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value='X'>
+      </form>
+    </li>
+  <% end %>
+</ul>
+
+
