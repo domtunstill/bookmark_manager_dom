@@ -3,31 +3,31 @@ require 'pg'
 class DatabaseConn
   TEST_SUFFIX = '_test'
   
-  def initialize(database)
+  def initialize(database:)
     @db_name = database
     @db_name += TEST_SUFFIX if test?
     @connection = PG.connect(dbname: @db_name)
   end
   
-  def all_records(table)
+  def all_records(table:)
     sql = "SELECT * FROM #{table};"
-    data = run_sql(sql)
+    data = run_sql(sql: sql)
   end
 
-  def save_values(table, columns, values, return_data = true)
-    sql = "INSERT INTO #{table} (#{columns}) VALUES (#{values})"
+  def add_record(table:, add_values:, in_columns:, return_data: true)
+    sql = "INSERT INTO #{table} (#{in_columns}) VALUES (#{add_values})"
     sql += " RETURNING *" if return_data == true
-    run_sql(sql)
+    run_sql(sql: sql)
   end
 
-  def delete(table, column, value)
-    sql = "DELETE FROM #{table} WHERE #{column} = #{value};"
-    run_sql(sql)
+  def delete_record(table:, where_column:, contains_value:)
+    sql = "DELETE FROM #{table} WHERE #{where_column} = #{contains_value};"
+    run_sql(sql: sql)
   end
 
   private
 
-  def run_sql(sql)
+  def run_sql(sql:)
     @connection.exec(sql)
   end
 

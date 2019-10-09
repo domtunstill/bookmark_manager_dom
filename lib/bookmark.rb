@@ -7,41 +7,59 @@ class Bookmark
 
   # class methods
   def self.all
-    db = DatabaseConn.new(DATABASE)
-    data = db.all_records(TABLE)
+    data = Bookmark.sql_all_records
     data.map do |bookmark| 
       Bookmark.new(
         id: bookmark['id'],
-        title: bookmark['title'],
-        url: bookmark['url']
-        ) 
+        url: bookmark['url'],
+        title: bookmark['title'],) 
     end
   end
   
   def self.create(url:, title:)
-    db = DatabaseConn.new(DATABASE)
-    columns = 'url, title'
-    values = "'#{url}', '#{title}'"
-    response = db.save_values(TABLE, columns, values)
-    Bookmark.new(id: response[0]['id'], url: response[0]['url'], title: response[0]['title'])
+    response = Bookmark.sql_add_record(url: url, title: title)
+    Bookmark.new(
+      id: response[0]['id'], 
+      url: response[0]['url'], 
+      title: response[0]['title'])
   end
   
   def self.delete(id:)
-    value = id
-    db = DatabaseConn.new(DATABASE)
-    db.delete(TABLE, PK_COL, value)
+    Bookmark.sql_delete_record(id: id)
+  end
+  
+  private
+
+  def self.sql_all_records
+    db = DatabaseConn.new(database: DATABASE)
+    db.all_records(table: TABLE)
+  end
+
+  def self.sql_add_record(url:, title:)
+    db = DatabaseConn.new(database: DATABASE)
+    db.add_record(
+      table: TABLE, 
+      in_columns: 'url, title', 
+      add_values: "'#{url}', '#{title}'")
+  end
+
+  def self.sql_delete_record(id:)
+    db = DatabaseConn.new(database: DATABASE)
+    db.delete_record(
+      table: TABLE, 
+      where_column: 'id' , 
+      contains_value: id)
   end
 
   # Instance Methods
+
+  public
+
   attr_reader :id, :url, :title
 
   def initialize(id:, url:, title:)
     @id = id
     @url = url
     @title = title
-  end
-
-  def db_conn
-    DatabaseConn.new(DATABASE)
   end
 end
