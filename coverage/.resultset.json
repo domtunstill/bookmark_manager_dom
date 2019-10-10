@@ -162,6 +162,20 @@
         null,
         null
       ],
+      "/Users/kevin/projects/makers/bookmark_manager/spec/features/url_validation_spec.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
       "/Users/kevin/projects/makers/bookmark_manager/spec/features/viewing_bookmarks_spec.rb": [
         1,
         null,
@@ -181,6 +195,6 @@
         null
       ]
     },
-    "timestamp": 1570721193
+    "timestamp": 1570722665
   }
 }
