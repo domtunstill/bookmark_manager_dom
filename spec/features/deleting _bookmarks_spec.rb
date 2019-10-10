@@ -1,16 +1,15 @@
 require './app'
 
 feature 'Deleting bookmarks' do
-  scenario 'A user can delete bookmarks' do
-    visit('/')
-    fill_in 'url', with: "http://www.google.com"
-    fill_in 'title', with: "Google"
-    click_button("Add Bookmark")
-    expect(page).to have_link 'Google', href: 'http://www.google.com'
+  scenario "A user can delete a bookmark" do
+    bookmark = Bookmark.create(url: 'http://www.google.com', title: 'Google')
+    visit '/'
+    id = bookmark.id
 
-    find_button('X').click
-  
+    within("div#bookmark-#{id}") do
+      click_button('X')
+    end
+
     expect(page).not_to have_link 'Google', href: 'http://www.google.com'
-
   end
 end

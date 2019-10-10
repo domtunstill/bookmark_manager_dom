@@ -8,11 +8,11 @@ class Bookmark
   # class methods
   def self.all
     all_data = Bookmark.sql_all_records
-    all_data.map do |bookmark| 
+    all_data.map do |record| 
       Bookmark.new(
-        id: bookmark['id'],
-        url: bookmark['url'],
-        title: bookmark['title'],) 
+        id: record['id'],
+        url: record['url'],
+        title: record['title'],) 
     end
   end
   
@@ -28,7 +28,22 @@ class Bookmark
     Bookmark.sql_delete_record(id: id)
   end
   
+  def self.edit(id:, title: nil, url: nil)
+    return false if title.nil? && url.nil?
+
+    Bookmark.sql_edit_record(id: id, title: title, url: url)
+  end
+
   private
+
+  def self.sql_edit_record(id:, url:, title:)
+    db = Database.connect(database: DATABASE)
+    db.edit_record(
+      table: TABLE, 
+      where_id: id, 
+      title: title, 
+      url: url)
+  end
 
   def self.sql_all_records
     db = Database.connect(database: DATABASE)

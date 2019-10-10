@@ -29,11 +29,23 @@
         <% @bookmarks.each do |bookmark| %>
         <div class="card">
           <div class="bookmark" id="bookmark-<%= bookmark.id %>">
-              <a href= "<%=bookmark.url%>" target="_blank"><%= bookmark.title %></a>
-              <form action="/api/bookmarks/delete/<%= bookmark.id %>" method="post">
+            <a href= "<%=bookmark.url%>" target="_blank"><%= bookmark.title %></a>
+            <form action="/api/bookmarks/<%= bookmark.id %>" method="post">
               <input type="hidden" name="_method" value="DELETE">
-              <input class="button" type="submit" value="X">
+              <input class="button" type="submit" id="bookmark_<%= bookmark.id %>_delete" value="X">
             </form>
+            <form action="/api/bookmarks/<%= bookmark.id %>/edit" method="get">
+              <input class="button" type="submit" id="bookmark_<%= bookmark.id %>_edit" value="Edit">
+            </form>
+
+            <% if @edit_id == bookmark.id %>
+              <form action="/api/bookmarks/<%= bookmark.id %>" method="post">
+                <input type="hidden" name="_method" value="PATCH">
+                <input type='text' name='url'>
+                <input type='text' name='title'>
+                <input class="button" type="submit" value="Submit Change">
+              </form>
+            <% end %>
           </div>
         </div>
         <% end %>

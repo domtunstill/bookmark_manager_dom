@@ -58,4 +58,42 @@ describe Bookmark do
 
     end
   end
+
+  describe '.edit' do
+    it 'edits a bookmark' do
+      connection = PG.connect(dbname: 'bookmark_manager_test')
+      bookmark = connection.exec("
+        INSERT INTO bookmarks (url, title) 
+        VALUES ('http://www.google.com', 'Google') 
+        RETURNING * ;"
+      )
+
+      id_old =  bookmark.first['id']
+
+      Bookmark.edit(id: id_old, title: 'Lougle', url: 'http://www.Lougle.com')
+      bookmarks = Bookmark.all
+      expect(bookmarks.first.id).to eq id_old
+      expect(bookmarks.first.title).to eq 'Lougle'
+      expect(bookmarks.first.url).to eq 'http://www.Lougle.com'
+    end
+
+    it "doesn't edit a bookmark, if URL and title remain unchanged" do
+      connection = PG.connect(dbname: 'bookmark_manager_test')
+      bookmark = connection.exec("
+        INSERT INTO bookmarks (url, title) 
+        VALUES ('http://www.google.com', 'Google') 
+        RETURNING * ;"
+      )
+
+      id_old =  bookmark.first['id']
+
+      returnvalue = Bookmark.edit(
+        id: id_old, 
+        title: 'Google', 
+        url: 'http://www.Google.com'
+      )
+      expect(returnvalue).to eq false
+    end
+  end
+
 end

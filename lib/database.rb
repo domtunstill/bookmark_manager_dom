@@ -29,6 +29,11 @@ class Database
     run_sql(sql: sql)
   end
 
+  def edit_record(table:, where_id:, url:, title:)
+    sql = "UPDATE #{table} SET title = '#{title}', url = '#{url}' WHERE id = '#{where_id}'"
+    run_sql(sql: sql)
+  end
+
   private
 
   def run_sql(sql:)
