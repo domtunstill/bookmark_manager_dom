@@ -34,6 +34,11 @@ class Database
     run_sql(sql: sql)
   end
 
+  def get_record(table:, where_id:)
+    sql = "SELECT * FROM #{table} WHERE id = '#{where_id}'"
+    run_sql(sql: sql).first
+  end
+
   private
 
   def run_sql(sql:)

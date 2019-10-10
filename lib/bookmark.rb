@@ -31,10 +31,18 @@ class Bookmark
   def self.edit(id:, title: nil, url: nil)
     return false if title.nil? && url.nil?
 
+    bookmark  = Bookmark.get_bookmark(id: id)
+    return false if title == bookmark.title && url = bookmark.url
+
     Bookmark.sql_edit_record(id: id, title: title, url: url)
   end
 
   private
+
+  def self.get_bookmark(id:)
+    record = self.sql_get_record(id: id)
+    bookmark = Bookmark.new(id: record['id'], title: record['title'], url: record['url'])
+  end
 
   def self.sql_edit_record(id:, url:, title:)
     db = Database.connect(database: DATABASE)
@@ -48,6 +56,11 @@ class Bookmark
   def self.sql_all_records
     db = Database.connect(database: DATABASE)
     db.all_records(table: TABLE)
+  end
+
+  def self.sql_get_record(id: id)
+    db = Database.connect(database: DATABASE)
+    db.get_record(table: TABLE, where_id: id)
   end
 
   def self.sql_add_record(url:, title:)
