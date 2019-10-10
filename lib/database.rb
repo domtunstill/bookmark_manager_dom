@@ -1,8 +1,12 @@
 require 'pg'
 
-class DatabaseConn
+class Database
   TEST_SUFFIX = '_test'
   
+  def self.connect(database:)
+    Database.new(database: database)
+  end
+
   def initialize(database:)
     @db_name = database
     @db_name += TEST_SUFFIX if test?

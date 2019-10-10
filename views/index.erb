@@ -1,26 +1,54 @@
+<head>
+  <%# <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> %>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
 <title>Bookmark Manager</title>
-<h1>Bookmark Manager</h1>
 
-<form action="/api/bookmarks/new" method="post">
-  <label for="url">Url: </label>
-  <input type="text" name="url" placeholder="URL including http://"></br>
-  <label for="title">Title: </label>
-  <input type="text" name="title" placeholder="Title to display">
-  <input type="submit" value="Add Bookmark">
-</form>
+<div class="wrapper">
+  <div class="header">
+    <h1>Bookmark Manager</h1>
+  </div>
 
-<ul>
-  <% @bookmarks.each do |bookmark| %>
-    <li class="bookmark" id="bookmark-<%= bookmark.id %>">
-        <a href= "<%=bookmark.url%>" target="_blank">
-          <%= bookmark.title %>
-        </a>
-      <form action="/api/bookmarks/delete/<%= bookmark.id %>" method="post">
-        <input type="hidden" name="_method" value="DELETE">
-        <input type="submit" value='X'>
-      </form>
-    </li>
-  <% end %>
-</ul>
+  <div class="sidebar">
+    <h2>Add a new bookmark</h2>
+    <form action="/api/bookmarks/new" method="post">
+      <div class="form_container">
+        <label for="url">Url: </label>
+        <input type="text" name="url" placeholder="URL including http://"><br />
+        <label for="title">Title: </label>
+        <input type="text" name="title" placeholder="Title to display"><br />
+      </div>
+      <center>
+        <input class="button" type="submit" value="Add Bookmark">
+      </center>
+    </form>
+  </div>
+    
+  <div class="content">
+    <h2>My Bookmarks</h2>
+        <% @bookmarks.each do |bookmark| %>
+        <div class="card">
+          <div class="bookmark" id="bookmark-<%= bookmark.id %>">
+              <a href= "<%=bookmark.url%>" target="_blank"><%= bookmark.title %></a>
+              <form action="/api/bookmarks/delete/<%= bookmark.id %>" method="post">
+              <input type="hidden" name="_method" value="DELETE">
+              <input class="button" type="submit" value="X">
+            </form>
+          </div>
+        </div>
+        <% end %>
+    <div class="bookmark">
+    </div>
+  </div>
+    
+  <div class="footer">
+    <a href= "https://github.com/JDtheGeek" target="_blank">
+      JDtheGeek
+    </a>
+  </div>
+
+</div>
+
+
 
 

@@ -7,8 +7,8 @@ class Bookmark
 
   # class methods
   def self.all
-    data = Bookmark.sql_all_records
-    data.map do |bookmark| 
+    all_data = Bookmark.sql_all_records
+    all_data.map do |bookmark| 
       Bookmark.new(
         id: bookmark['id'],
         url: bookmark['url'],
@@ -17,11 +17,11 @@ class Bookmark
   end
   
   def self.create(url:, title:)
-    response = Bookmark.sql_add_record(url: url, title: title)
+    db_response = Bookmark.sql_add_record(url: url, title: title)
     Bookmark.new(
-      id: response[0]['id'], 
-      url: response[0]['url'], 
-      title: response[0]['title'])
+      id: db_response[0]['id'], 
+      url: db_response[0]['url'], 
+      title: db_response[0]['title'])
   end
   
   def self.delete(id:)
@@ -31,12 +31,12 @@ class Bookmark
   private
 
   def self.sql_all_records
-    db = DatabaseConn.new(database: DATABASE)
+    db = Database.connect(database: DATABASE)
     db.all_records(table: TABLE)
   end
 
   def self.sql_add_record(url:, title:)
-    db = DatabaseConn.new(database: DATABASE)
+    db = Database.connect(database: DATABASE)
     db.add_record(
       table: TABLE, 
       in_columns: 'url, title', 
@@ -44,7 +44,7 @@ class Bookmark
   end
 
   def self.sql_delete_record(id:)
-    db = DatabaseConn.new(database: DATABASE)
+    db = Database.connect(database: DATABASE)
     db.delete_record(
       table: TABLE, 
       where_column: 'id' , 
