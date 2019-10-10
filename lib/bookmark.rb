@@ -45,8 +45,7 @@ class Bookmark
   end
 
   def self.sql_edit_record(id:, url:, title:)
-    db = Database.connect(database: DATABASE)
-    db.edit_record(
+    Database.edit_record(
       table: TABLE, 
       where_id: id, 
       title: title, 
@@ -54,26 +53,22 @@ class Bookmark
   end
 
   def self.sql_all_records
-    db = Database.connect(database: DATABASE)
-    db.all_records(table: TABLE)
+    Database.all_records(table: TABLE)
   end
 
   def self.sql_get_record(id: id)
-    db = Database.connect(database: DATABASE)
-    db.get_record(table: TABLE, where_id: id)
+    Database.get_record(table: TABLE, where_id: id)
   end
 
   def self.sql_add_record(url:, title:)
-    db = Database.connect(database: DATABASE)
-    db.add_record(
+    Database.add_record(
       table: TABLE, 
       in_columns: 'url, title', 
       add_values: "'#{url}', '#{title}'")
   end
 
   def self.sql_delete_record(id:)
-    db = Database.connect(database: DATABASE)
-    db.delete_record(
+    Database.delete_record(
       table: TABLE, 
       where_column: 'id' , 
       contains_value: id)
