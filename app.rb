@@ -13,7 +13,7 @@ class BookmarkManager < Sinatra::Base
     erb :index
   end
 
-  post '/api/bookmarks/new' do
+  post '/bookmarks/new' do
     if params['url'] =~ /\A#{URI::regexp(['http', 'https'])}\z/
       Bookmark.create(url: params[:url], title: params[:title])
     else
@@ -23,24 +23,36 @@ class BookmarkManager < Sinatra::Base
     redirect '/'
   end
 
-  delete '/api/bookmarks/:id' do
+  delete '/bookmarks/:id' do
     delete_id = params[:id]
     Bookmark.delete(id: delete_id)
     redirect '/'
   end
 
-  get '/api/bookmarks/:id/edit' do
+  get '/bookmarks/:id/edit' do
     @edit_id = params[:id]
     @bookmarks = Bookmark.all
     erb :index
   end
 
-  patch '/api/bookmarks/:id' do
+  patch '/bookmarks/:id' do
     edit_id = params[:id]
     new_title = params[:title]
     new_url = params[:url]
     Bookmark.edit(id: edit_id, title: new_title, url: new_url)
     redirect '/'
+  end
+
+  post '/bookmarks/:id/comments' do
+    puts params
+    Bookmark.add_comment(params['comment'])
+    redirect '/'
+  end
+
+  get '/bookmarks/:id/comments/new' do
+    @new_comment = true
+    @bookmarks = Bookmark.all
+    erb :index
   end
 
   run! if app_file == $PROGRAM_NAME
