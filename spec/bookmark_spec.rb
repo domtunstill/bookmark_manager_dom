@@ -2,13 +2,15 @@ require 'bookmark'
 require 'database_helpers'
 
 describe Bookmark do
+  let(:tag) { double(:tag, id: 1 ) }
   let(:comment_class) { double(:comment_class) }
+  let(:tag_bookmark_class) { double(:tag_bookmark_class) }
 
-  subject(:bookmark) { 
+  subject(:bookmark) {
     bookmark = Bookmark.create(url: 'http://www.google.com', title: 'Google')
-    Bookmark.new(id: bookmark.id, url: bookmark.url, title: bookmark.title, comment_class: comment_class)
+    Bookmark.new(id: bookmark.id, url: bookmark.url, title: bookmark.title, comment_class: comment_class, tag_class: tag_class, tag_bookmark_class: tag_bookmark_class)
    }
-  
+
   describe '.all' do
     it 'returns all bookmarks' do
       connection = PG.connect(dbname: 'bookmark_manager_test')
@@ -117,4 +119,19 @@ describe Bookmark do
       end
     end
   end
+
+  describe '#add_tag' do
+    it 'adds a tag to the selected bookmark' do
+      expect(tag_class).to receive(:create).with(name: "Test Tag") {tag}
+      expect(tag_bookmark_class).to receive(:tag_bookmark).with(bookmark_id: bookmark.id, tag_id: tag.id)
+      bookmark.add_comment("Test Comment")
+    end
+  end
+
+  describe '#tag' do
+    it 'returns tags on the selected bookmark' do
+      expect(tag_bookmark_class).to receive(:where).with(column: 'bookmark_id', bookmark.id)
+    end
+  end
+
 end

@@ -55,5 +55,11 @@ class BookmarkManager < Sinatra::Base
     erb :index
   end
 
+  get '/bookmarks/:id/tags/new' do
+    @tag_on_id = params[:id]
+    @bookmarks = Bookmark.all
+    erb :index
+  end
+
   run! if app_file == $PROGRAM_NAME
 end

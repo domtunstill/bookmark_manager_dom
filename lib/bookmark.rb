@@ -43,6 +43,11 @@ class Bookmark
     bookmark = Bookmark.new(id: record['id'], title: record['title'], url: record['url'])
   end
 
+  def self.where(id:)
+    record = self.sql_get_record(id: id)
+    bookmark = Bookmark.new(id: record['id'], title: record['title'], url: record['url'])
+  end
+
   private
 
   def self.sql_edit_record(id:, url:, title:)
@@ -81,11 +86,13 @@ class Bookmark
 
   attr_reader :id, :url, :title
 
-  def initialize(id:, url:, title:, comment_class: Comment)
+  def initialize(id:, url:, title:, comment_class: Comment, tag_class: Tag, tag_bookmark_class: TagBookmark)
     @id = id
     @url = url
     @title = title
     @comment_class = comment_class
+    @tag_class = tag_class
+    @tag_bookmark_class = tag_bookmark_class
   end
 
   def add_comment(comment)
@@ -95,4 +102,14 @@ class Bookmark
   def comments
     @comment_class.where(bookmark_id: @id)
   end
+
+  def add_tag(tag)
+    tag = @tag_class.create(name: tag)
+    @tag_bookmark_class.tag_bookmark(bookmark_id: @id, tag_id: tag.id)
+  end
+
+  def tags
+    tag_bookmark_class.where(column: 'bookmark_id', id: @id)
+  end
+
 end

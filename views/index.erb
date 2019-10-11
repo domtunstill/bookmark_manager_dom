@@ -24,7 +24,7 @@
     </form>
     <%= flash[:notice] %>
   </div>
-    
+   
   <div class="content">
     <h2>My Bookmarks</h2>
         <% @bookmarks.each do |bookmark| %>
@@ -55,6 +55,20 @@
                 <input class="button" type="submit" value="Submit Change">
               </form>
             <% end %>
+            <% if @tag_on_id == bookmark.id %>
+            <form action='/bookmarks/<%= bookmark.id %>/tags' method='post'>
+              <label for="tag">Tag: </label>
+              <input type="text" name="tag">
+              <datalist>
+                <% bookmark.tags.each do |tag| %>
+                <option><%tag.name%></option>
+                <% end %>
+              </datalist>
+              <input class="button" type="submit" value="Submit">
+            </form>
+            <% else %>
+              <a class='button_link' href='/bookmarks/<%= bookmark.id %>/tags/new'>Add Tag</a>
+            <% end %>
             <ol>
               <% bookmark.comments.each do |comment| %>
                 <li>
@@ -68,7 +82,7 @@
     <div class="bookmark">
     </div>
   </div>
-    
+   
   <div class="footer">
     <a href= "https://github.com/kevindhanna" target="_blank">
       KDTheGeek
@@ -76,7 +90,3 @@
   </div>
 
 </div>
-
-
-
-
