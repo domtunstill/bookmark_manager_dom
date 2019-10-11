@@ -45,7 +45,7 @@ class BookmarkManager < Sinatra::Base
 
   post '/bookmarks/:id/comments' do
     bookmark = Bookmark.get_bookmark(id: params['id'])
-    bookmark.add_comment(bookmark_id: bookmark.id, comment:params['comment']).first.contents
+    bookmark.add_comment(params['comment'])
     redirect '/'
   end
 

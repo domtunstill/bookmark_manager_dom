@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/kevin/projects/makers/bookmark_manager/spec/bookmark_spec.rb": [
+      "/Users/student/Documents/Projects/Week-4/bookmark_manager_dom/spec/bookmark_spec.rb": [
         1,
         1,
         null,
@@ -123,7 +123,7 @@
         null,
         null
       ],
-      "/Users/kevin/projects/makers/bookmark_manager/spec/database_helpers.rb": [
+      "/Users/student/Documents/Projects/Week-4/bookmark_manager_dom/spec/database_helpers.rb": [
         1,
         null,
         1,
@@ -132,7 +132,7 @@
         1,
         null
       ],
-      "/Users/kevin/projects/makers/bookmark_manager/spec/comment_spec.rb": [
+      "/Users/student/Documents/Projects/Week-4/bookmark_manager_dom/spec/comment_spec.rb": [
         1,
         null,
         1,
@@ -159,74 +159,9 @@
         null,
         null
       ],
-      "/Users/kevin/projects/makers/bookmark_manager/spec/features/add_comment_Spec.rb": [
+      "/Users/student/Documents/Projects/Week-4/bookmark_manager_dom/spec/features/add_comment_spec.rb": [
         1,
         1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        null
-      ],
-      "/Users/kevin/projects/makers/bookmark_manager/spec/features/adding_bookmarks_spec.rb": [
-        1,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        null,
-        null
-      ],
-      "/Users/kevin/projects/makers/bookmark_manager/spec/features/deleting _bookmarks_spec.rb": [
-        1,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        null,
-        null
-      ],
-      "/Users/kevin/projects/makers/bookmark_manager/spec/features/updating_bookmarks_spec.rb": [
-        1,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/kevin/projects/makers/bookmark_manager/spec/features/url_validation_spec.rb": [
         1,
         1,
         1,
@@ -240,7 +175,72 @@
         null,
         null
       ],
-      "/Users/kevin/projects/makers/bookmark_manager/spec/features/viewing_bookmarks_spec.rb": [
+      "/Users/student/Documents/Projects/Week-4/bookmark_manager_dom/spec/features/adding_bookmarks_spec.rb": [
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        null
+      ],
+      "/Users/student/Documents/Projects/Week-4/bookmark_manager_dom/spec/features/deleting _bookmarks_spec.rb": [
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null,
+        null
+      ],
+      "/Users/student/Documents/Projects/Week-4/bookmark_manager_dom/spec/features/updating_bookmarks_spec.rb": [
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/student/Documents/Projects/Week-4/bookmark_manager_dom/spec/features/url_validation_spec.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        null
+      ],
+      "/Users/student/Documents/Projects/Week-4/bookmark_manager_dom/spec/features/viewing_bookmarks_spec.rb": [
         1,
         null,
         1,
@@ -259,6 +259,6 @@
         null
       ]
     },
-    "timestamp": 1570806848
+    "timestamp": 1570807466
   }
 }
