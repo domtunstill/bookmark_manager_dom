@@ -8,7 +8,7 @@ feature 'bookmark comments' do
       fill_in 'comment', with: "Test Comment"
       click_button("Submit")
     }
-
+    expect(page).to have_link 'Google', href: 'http://www.google.com'
     expect(page).to have_content("Test Comment")
   end
 end

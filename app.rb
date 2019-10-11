@@ -7,7 +7,7 @@ class BookmarkManager < Sinatra::Base
 
   enable :sessions, :method_override
   register Sinatra::Flash
-  
+
   get '/' do
     @bookmarks = Bookmark.all
     erb :index
@@ -45,7 +45,8 @@ class BookmarkManager < Sinatra::Base
 
   post '/bookmarks/:id/comments' do
     puts params
-    Bookmark.add_comment(params['comment'])
+    bookmark = Bookmark.get_bookmark(id: params['id'])
+    bookmark.add_comment(bookmark_id: bookmark.id, comment:params['comment'])
     redirect '/'
   end
 
