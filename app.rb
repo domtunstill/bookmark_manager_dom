@@ -2,6 +2,8 @@ require 'sinatra/base'
 require 'sinatra/flash'
 require 'uri'
 require_relative './lib/bookmark'
+require_relative './lib/tag'
+require_relative './lib/tag_bookmark'
 
 class BookmarkManager < Sinatra::Base
 
@@ -59,6 +61,13 @@ class BookmarkManager < Sinatra::Base
     @tag_on_id = params[:id]
     @bookmarks = Bookmark.all
     erb :index
+  end
+
+  post '/bookmarks/:id/tags' do
+    @tag = Tag.create(name: params[:tag])
+    @bookmark = Bookmark.where(id: params[:id])
+    @bookmark.add_tag(@tag.id)
+    redirect '/'
   end
 
   run! if app_file == $PROGRAM_NAME

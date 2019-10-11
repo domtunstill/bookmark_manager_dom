@@ -103,13 +103,12 @@ class Bookmark
     @comment_class.where(bookmark_id: @id)
   end
 
-  def add_tag(tag)
-    tag = @tag_class.create(name: tag)
-    @tag_bookmark_class.tag_bookmark(bookmark_id: @id, tag_id: tag.id)
+  def add_tag(tag_id)
+    @tag_bookmark_class.tag_bookmark(bookmark_id: @id, tag_id: tag_id)
   end
 
   def tags
-    tag_bookmark_class.where(column: 'bookmark_id', id: @id)
+    @tag_bookmark_class.where(column: 'bookmark_id', id: @id)
   end
 
 end

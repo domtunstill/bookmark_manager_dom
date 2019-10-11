@@ -6,7 +6,7 @@ describe Tag do
 
   subject(:tag) {
     tag = Tag.create(name: 'Test tag')
-    Tag.new(id: tag.id, name: bookmark.name, title:, tag_bookmark_class: tag_bookmark_class)
+    Tag.new(id: tag.id, name: tag.name, tag_bookmark_class: tag_bookmark_class)
    }
 
   describe '.create' do
@@ -25,7 +25,8 @@ describe Tag do
 
   describe '#bookmarks' do
     it 'returns the bookmarks relevant to the tag' do
-      expect(tag_bookmark_class).to receive(:where).with(column: 'tag_id', tag.id)
+      expect(tag_bookmark_class).to receive(:where).with(column: 'tag_id', id: tag.id)
+      tag.bookmarks
     end
   end
 

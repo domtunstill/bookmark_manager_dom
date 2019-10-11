@@ -11,7 +11,7 @@ class Tag
   end
 
   def bookmarks
-    tag_bookmark_class.where(column'tag_id', id: @id)
+    @tag_bookmark_class.where(column: 'tag_id', id: @id)
   end
 
   attr_reader :id, :name

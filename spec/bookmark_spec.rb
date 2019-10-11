@@ -4,6 +4,7 @@ require 'database_helpers'
 describe Bookmark do
   let(:tag) { double(:tag, id: 1 ) }
   let(:comment_class) { double(:comment_class) }
+  let(:tag_class) { double(:tag_class) }
   let(:tag_bookmark_class) { double(:tag_bookmark_class) }
 
   subject(:bookmark) {
@@ -124,13 +125,14 @@ describe Bookmark do
     it 'adds a tag to the selected bookmark' do
       expect(tag_class).to receive(:create).with(name: "Test Tag") {tag}
       expect(tag_bookmark_class).to receive(:tag_bookmark).with(bookmark_id: bookmark.id, tag_id: tag.id)
-      bookmark.add_comment("Test Comment")
+      bookmark.add_tag("Test Tag")
     end
   end
 
-  describe '#tag' do
+  describe '#tags' do
     it 'returns tags on the selected bookmark' do
-      expect(tag_bookmark_class).to receive(:where).with(column: 'bookmark_id', bookmark.id)
+      expect(tag_bookmark_class).to receive(:where).with(column: 'bookmark_id', id: bookmark.id)
+      bookmark.tags
     end
   end
 
