@@ -44,14 +44,13 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/bookmarks/:id/comments' do
-    puts params
     bookmark = Bookmark.get_bookmark(id: params['id'])
-    bookmark.add_comment(bookmark_id: bookmark.id, comment:params['comment'])
+    bookmark.add_comment(bookmark_id: bookmark.id, comment:params['comment']).first.contents
     redirect '/'
   end
 
   get '/bookmarks/:id/comments/new' do
-    @new_comment = true
+    @comment_on_id = params[:id]
     @bookmarks = Bookmark.all
     erb :index
   end

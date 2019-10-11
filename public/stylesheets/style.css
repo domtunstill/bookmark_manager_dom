@@ -45,6 +45,13 @@ h1 {
   color: #FFFFFF
 }
 
+.button_link {
+  font-size: 0.7em;
+  background-color: #8BC34A;
+  color: #FFFFFF;
+  padding: 5px;
+}
+
 .content {
   border: 10px;
   padding: 10px;

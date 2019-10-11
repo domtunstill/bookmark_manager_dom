@@ -1,4 +1,5 @@
 require_relative 'database'
+require_relative 'comment'
 
 class Bookmark
   DATABASE = 'bookmark_manager'
@@ -56,7 +57,7 @@ class Bookmark
     Database.all_records(table: TABLE)
   end
 
-  def self.sql_get_record(id: id)
+  def self.sql_get_record(id:)
     Database.get_record(table: TABLE, where_id: id)
   end
 
@@ -80,9 +81,18 @@ class Bookmark
 
   attr_reader :id, :url, :title
 
-  def initialize(id:, url:, title:)
+  def initialize(id:, url:, title:, comment_class: Comment)
     @id = id
     @url = url
     @title = title
+    @comment_class = comment_class
+  end
+
+  def add_comment(comment)
+    @comment_class.create(bookmark_id: @id, comment: comment)
+  end
+
+  def comments
+    @comment_class.where(bookmark_id: @id)
   end
 end

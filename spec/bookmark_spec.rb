@@ -2,6 +2,13 @@ require 'bookmark'
 require 'database_helpers'
 
 describe Bookmark do
+  let(:comment_class) { double(:comment_class) }
+
+  subject(:bookmark) { 
+    bookmark = Bookmark.create(url: 'http://www.google.com', title: 'Google')
+    Bookmark.new(id: bookmark.id, url: bookmark.url, title: bookmark.title, comment_class: comment_class)
+   }
+  
   describe '.all' do
     it 'returns all bookmarks' do
       connection = PG.connect(dbname: 'bookmark_manager_test')
@@ -29,7 +36,6 @@ describe Bookmark do
 
   describe '.create' do
     it 'creates a new bookmark' do
-      bookmark = Bookmark.create(url: 'http://www.google.com', title: 'Google')
       persisted_data = persisted_data(id: bookmark.id)
 
       expect(bookmark).to be_a Bookmark
@@ -98,8 +104,17 @@ describe Bookmark do
 
   describe '#add_comment' do
     it 'adds a comment to the selected bookmark' do
-      
+      expect(comment_class).to receive(:create).with(bookmark_id: bookmark.id, comment: "Test Comment")
+      bookmark.add_comment("Test Comment")
     end
   end
 
+  describe '#comments' do
+    context 'given a bookmark id' do
+      it 'returns all comments' do
+        expect(comment_class).to receive(:where).with(bookmark_id: bookmark.id)
+        bookmark.comments
+      end
+    end
+  end
 end

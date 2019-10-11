@@ -38,14 +38,14 @@
             <form action="/bookmarks/<%= bookmark.id %>/edit" method="get">
               <input class="button" type="submit" id="bookmark_<%= bookmark.id %>_edit" value="Edit">
             </form>
-            <% if @new_comment %>
+            <% if @comment_on_id == bookmark.id %>
             <form action='/bookmarks/<%= bookmark.id %>/comments' method='post'>
               <label for="comment">Comment: </label>
               <input type="text" name="comment">
               <input class="button" type="submit" value="Submit">
             </form>
             <% else %>
-              <a href='/bookmarks/<%= bookmark.id %>/comments/new'>New Comment</a>
+              <a class='button_link' href='/bookmarks/<%= bookmark.id %>/comments/new'>New Comment</a>
             <% end %>
             <% if @edit_id == bookmark.id %>
               <form action="/bookmarks/<%= bookmark.id %>" method="post">
@@ -55,6 +55,13 @@
                 <input class="button" type="submit" value="Submit Change">
               </form>
             <% end %>
+            <ol>
+              <% bookmark.comments.each do |comment| %>
+                <li>
+                  <%= comment.contents %>
+                </li>
+              <% end %>
+            </ol>
           </div>
         </div>
         <% end %>

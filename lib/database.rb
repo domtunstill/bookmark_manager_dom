@@ -39,6 +39,10 @@ class Database
     run_sql(sql: sql).first
   end
 
+  def self.query(string)
+    self.run_sql(sql: string)
+  end
+
   private
 
   def self.run_sql(sql:)
